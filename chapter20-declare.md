@@ -45,3 +45,61 @@ declare module 'pkg' {
 3. 使用lib导入的ts的内置声明，例子中声明了对`lib.d.ts`的依赖。
 
 ### 命名空间
+假设一个场景，一开始只有支付宝的sdk和wx的sdk
+```js
+
+class WeChatPaySDK {}
+class ALiPaySDK {}
+```
+然后又多了美团支付、虚拟货币支付（比如 Q 币）、信用卡支付等等：我们使用虚拟货币和现实货币进行区分,注意，这是写在`ts`文件中,且需要被导出。
+```js
+
+export namespace RealCurrency {
+  class WeChatPaySDK {}
+  class ALiPaySDK {}
+}
+
+export namespace VirtualCurrency {
+  xxx
+}
+```
+
+使用
+```js
+
+const wechatSdk = new RealCurrency.WeChatPaySDK();
+```
+
+命名空间可以合并，但是需要三斜线指令进行声明导入。
+```js
+// animal.ts
+namespace Animal {
+  export namespace ProtectedAnimals {}
+}
+
+// dog.ts
+/// <reference path="animal.ts" />
+namespace Animal {
+  export namespace Dog {
+    export function bark() {}
+  }
+}
+
+// corgi.ts
+/// <reference path="dog.ts" />
+namespace Animal {
+  export namespace Dog {
+    export namespace Corgi {
+      export function corgiBark() {}
+    }
+  }
+}
+```
+实际使用时，需要导入全部声明文件
+```js
+/// <reference path="animal.ts" />
+/// <reference path="dog.ts" />
+/// <reference path="corgi.ts" />
+
+Animal.Dog.Corgi.corgiBark();
+```

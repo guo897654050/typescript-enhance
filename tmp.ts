@@ -1,7 +1,12 @@
-type Foo2 = {
-  propA: number;
-  propB: boolean;
-  propC: string;
+class F1 {
+  constructor() { }
+
+  handler() {
+    console.log(222)
+  }
 }
 
-type PropTypeUnion = Foo2[keyof Foo2]; // string | number | boolean
+
+const f1 = new F1();
+
+console.log('prototype', f1, Reflect.getPrototypeOf(f1))
