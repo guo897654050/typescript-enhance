@@ -51,7 +51,7 @@ declare module 'pkg' {
 class WeChatPaySDK {}
 class ALiPaySDK {}
 ```
-然后又多了美团支付、虚拟货币支付（比如 Q 币）、信用卡支付等等：我们使用虚拟货币和现实货币进行区分,注意，这是写在`ts`文件中,且需要被导出。
+然后又多了美团支付、虚拟货币支付（比如 Q 币）、信用卡支付等等：我们使用虚拟货币和现实货币进行区分,注意，这是写在`ts`文件中,但是在`d.ts`文件也可用且需要被导出。
 ```js
 
 export namespace RealCurrency {
